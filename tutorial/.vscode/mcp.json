@@ -1,0 +1,14 @@
+{
+  // For more information, visit: https://angular.dev/ai/mcp
+  "servers": {
+    "angular-cli": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@angular/cli",
+        "mcp"
+      ]
+    }
+  }
+}
