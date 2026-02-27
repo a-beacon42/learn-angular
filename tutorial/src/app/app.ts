@@ -8,5 +8,8 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('tutorial');
+  protected readonly title = signal<string>('My Recipe Box');
+  protected logSelection(selection: string): void {
+    console.log(selection);
+  }
 }
