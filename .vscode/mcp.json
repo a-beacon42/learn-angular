@@ -8,7 +8,8 @@
         "-y",
         "@angular/cli",
         "mcp"
-      ]
+      ],
+      "cwd": "${workspaceFolder}/tutorial"
     }
   }
 }
