@@ -1,4 +1,6 @@
-<div class="recipe-card" (click)="selected.emit(recipe().id)">
-  <p>{{ recipe().name }}</p>
-  <p>{{ recipe().description }}</p>
+<div class="recipe-card">
+  <a [routerLink]="['/recipes', recipe().id]">
+    <p>{{ recipe().name }}</p>
+    <p>{{ recipe().description }}</p>
+  </a>
 </div>

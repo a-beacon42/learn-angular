@@ -1,12 +1,7 @@
 <div>
   @for (recipe of allRecipes(); track recipe.id) {
-    <app-recipe-card [recipe]="recipe" (selected)="switchRecipe($event)" />
+    <app-recipe-card [recipe]="recipe" />
   } @empty {
     <p>No recipes available.</p>
   }
 </div>
-@if (selectedRecipe(); as recipe) {
-  <app-recipe-detail [recipe]="recipe" />
-} @else {
-  <p>No recipe selected.</p>
-}

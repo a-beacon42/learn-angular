@@ -12,4 +12,8 @@ export class RecipeService {
   switchRecipe = (newRecipeId: number): void => {
     this.selectedRecipe.set(MOCK_RECIPES[newRecipeId - 1]);
   };
+
+  getRecipeById = (recipeId: number): RecipeModel | undefined => {
+    return MOCK_RECIPES.find(recipe => recipe.id === recipeId);
+  }
 }

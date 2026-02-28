@@ -13,5 +13,4 @@ export class RecipeList {
   private readonly recipeService = inject(RecipeService);
   allRecipes = this.recipeService.allRecipes;
   selectedRecipe = this.recipeService.selectedRecipe;
-  switchRecipe = this.recipeService.switchRecipe;
 }

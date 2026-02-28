@@ -1,13 +1,18 @@
+<a [routerLink]="['/']">
+  <p>home</p>
+</a>
 <div>
   <button (click)="updateServings(1)">+</button>
   <span>servings: {{ servings() }}</span>
   <button (click)="updateServings(-1)">-</button>
 </div>
-<img [src]="recipe().imgUrl" [alt]="'image of ' + recipe().name" />
-<h2>{{ recipe().name }}</h2>
-<p>{{ recipe().description }}</p>
-<ul>
-  @for (ingredient of adjustedIngredients(); track ingredient.name) {
-    <li>{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</li>
-  }
-</ul>
+@if (recipe(); as r) {
+  <img [src]="r.imgUrl" [alt]="'image of ' + r.name" />
+  <h2>{{ r.name }}</h2>
+  <p>{{ r.description }}</p>
+  <ul>
+    @for (ingredient of adjustedIngredients(); track ingredient.name) {
+      <li>{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</li>
+    }
+  </ul>
+}

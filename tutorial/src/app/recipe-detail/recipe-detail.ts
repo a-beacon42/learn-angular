@@ -1,19 +1,28 @@
-import { Component, input, signal, computed } from '@angular/core';
-import { RecipeModel } from '../models'
+import { Component, input, signal, computed, inject } from '@angular/core';
+import { RecipeService } from '../services/recipe.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './recipe-detail.html',
   styleUrl: './recipe-detail.scss',
 })
 export class RecipeDetail {
-  recipe = input.required<RecipeModel>();
+  recipeService = inject(RecipeService);
+  recipeId = input<string>();
+
+  protected readonly recipe = computed(() => {
+    const id = this.recipeId();
+    return id ? this.recipeService.getRecipeById(+id) : undefined;
+  });
+
   protected readonly servings = signal<number>(1);
 
-  protected readonly adjustedIngredients = computed(() => (
-    this.recipe().ingredients.map(ingredient => ({ ...ingredient, quantity: ingredient.quantity * this.servings() }))
-  )
+  protected readonly adjustedIngredients = computed(() => {
+    const r = this.recipe();
+    return r ? r.ingredients.map(ingredient => ({ ...ingredient, quantity: ingredient.quantity * this.servings() })) : [];
+  }
   );
 
   protected updateServings(servingsChange: number): void {
