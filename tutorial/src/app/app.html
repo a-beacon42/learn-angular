@@ -10,6 +10,7 @@
         <button (click)="updateServings(-1)"> - </button>
     </div>
 @if (selectedRecipe()) {
+    <img [src]="selectedRecipe().imgUrl" [alt]="'image of ' + selectedRecipe().name" />
     <h2>{{ selectedRecipe().name }}</h2>
     <p>{{ selectedRecipe().description }}</p>
     <ul>
