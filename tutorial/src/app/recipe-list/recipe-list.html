@@ -1,6 +1,8 @@
 <div>
-    @for ( recipe of allRecipes(); track recipe.id ) {
-        <button (click)="switchRecipe(recipe.id)">{{ recipe.name }}</button>
-    }
+  @for (recipe of allRecipes(); track recipe.id) {
+    <app-recipe-card [recipe]="recipe" (click)="switchRecipe(recipe.id)" />
+  } @empty {
+    <p>No recipes available.</p>
+  }
 </div>
-<app-recipe-detail [recipe]="selectedRecipe()"/>
+<app-recipe-detail [recipe]="selectedRecipe()" />
