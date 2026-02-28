@@ -12,7 +12,7 @@ import { RecipeCard } from '../recipe-card/recipe-card';
 })
 export class RecipeList {
   protected readonly allRecipes = signal<RecipeModel[]>(MOCK_RECIPES);
-  protected readonly selectedRecipe = signal<RecipeModel>(MOCK_RECIPES[1]);
+  protected readonly selectedRecipe = signal<RecipeModel | undefined>(undefined);
 
   protected switchRecipe(newRecipeId: number): void {
     this.selectedRecipe.set(MOCK_RECIPES[newRecipeId - 1]);
