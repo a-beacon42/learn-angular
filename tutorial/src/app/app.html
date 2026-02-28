@@ -1,20 +1,2 @@
-<h1>{{ title() }}</h1>
-<div>
-    @for ( recipe of allRecipes(); track recipe.id ) {
-        <button (click)="switchRecipe(recipe.id)">{{ recipe.name }}</button>
-    }
-</div>
-    <div>
-        <button (click)="updateServings(1)"> + </button>
-        <span>servings: {{ servings() }}</span>
-        <button (click)="updateServings(-1)"> - </button>
-    </div>
-@if (selectedRecipe()) {
-    <h2>{{ selectedRecipe().name }}</h2>
-    <p>{{ selectedRecipe().description }}</p>
-    <ul>
-        @for ( ingredient of adjustedIngredients(); track ingredient.name ) {
-            <li>{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</li>
-            }
-    </ul>
-}
+<h1>{{ title }}</h1>
+<app-recipe-list />
