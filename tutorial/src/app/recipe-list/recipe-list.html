@@ -5,8 +5,8 @@
     <p>No recipes available.</p>
   }
 </div>
-@if (selectedRecipe()) {
-  <app-recipe-detail [recipe]="selectedRecipe()" />
+@if (selectedRecipe(); as recipe) {
+  <app-recipe-detail [recipe]="recipe" />
 } @else {
   <p>No recipe selected.</p>
 }
