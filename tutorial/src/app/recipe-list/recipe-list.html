@@ -1,6 +1,6 @@
 <div>
   @for (recipe of allRecipes(); track recipe.id) {
-    <app-recipe-card [recipe]="recipe" (click)="switchRecipe(recipe.id)" />
+    <app-recipe-card [recipe]="recipe" (selected)="switchRecipe($event)" />
   } @empty {
     <p>No recipes available.</p>
   }

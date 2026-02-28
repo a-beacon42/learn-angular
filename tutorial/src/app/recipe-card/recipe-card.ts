@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { RecipeModel } from '../models';
 
 @Component({
@@ -9,4 +9,5 @@ import { RecipeModel } from '../models';
 })
 export class RecipeCard {
   recipe = input.required<RecipeModel>();
+  selected = output<number>();
 }
