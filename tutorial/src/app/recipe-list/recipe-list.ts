@@ -1,8 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RecipeModel } from '../models';
-import { MOCK_RECIPES } from '../mock-recipes';
+import { Component, inject } from '@angular/core';
 import { RecipeDetail } from '../recipe-detail/recipe-detail';
 import { RecipeCard } from '../recipe-card/recipe-card';
+import { RecipeService } from '../services/recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,10 +10,8 @@ import { RecipeCard } from '../recipe-card/recipe-card';
   styleUrl: './recipe-list.scss',
 })
 export class RecipeList {
-  protected readonly allRecipes = signal<RecipeModel[]>(MOCK_RECIPES);
-  protected readonly selectedRecipe = signal<RecipeModel | undefined>(undefined);
-
-  protected switchRecipe(newRecipeId: number): void {
-    this.selectedRecipe.set(MOCK_RECIPES[newRecipeId - 1]);
-  }
+  private readonly recipeService = inject(RecipeService);
+  allRecipes = this.recipeService.allRecipes;
+  selectedRecipe = this.recipeService.selectedRecipe;
+  switchRecipe = this.recipeService.switchRecipe;
 }
