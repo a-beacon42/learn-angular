@@ -2,7 +2,7 @@ import { RecipeModel } from './models';
 
 export const MOCK_RECIPES: RecipeModel[] = [
     {
-        id: 1,
+        id: 'arg08ajg',
         name: 'Spaghetti Carbonara',
         description: 'A classic Italian pasta dish.',
         imgUrl: 'https://via.placeholder.com/300x200.png?text=Spaghettic+Carbonara',
@@ -15,7 +15,7 @@ export const MOCK_RECIPES: RecipeModel[] = [
         ],
     },
     {
-        id: 2,
+        id: 'asr089agn',
         name: 'Caprese Salad',
         description: 'A simple and refreshing Italian salad.',
         imgUrl: 'https://via.placeholder.com/300x200.png?text=Caprese+Salad',

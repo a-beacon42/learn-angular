@@ -1,2 +1,12 @@
 <h1>{{ title }}</h1>
+<!-- future navbar -->
+<div>
+  <a [routerLink]="['/']">
+    <p>home</p>
+  </a>
+  <a [routerLink]="['/add']">
+    <p>add recipe</p>
+  </a>
+</div>
+<!-- end future navbar -->
 <router-outlet />

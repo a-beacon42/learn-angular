@@ -1,0 +1,36 @@
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+  <label>
+    name
+    <input formControlName="name" />
+  </label>
+  <label>
+    description
+    <input formControlName="description" />
+  </label>
+  <label>
+    image URL
+    <input formControlName="imgUrl" />
+  </label>
+  <label>
+    ingredients
+    @for (ingredient of recipeForm.controls.ingredients.value; track ingredient.name) {
+      <li>{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</li>
+    }
+    <div [formGroup]="ingredientForm" (ngSubmit)="onAddIngredient()">
+      <label>
+        name
+        <input formControlName="name" />
+      </label>
+      <label>
+        quantity
+        <input formControlName="quantity" />
+      </label>
+      <label>
+        unit
+        <input formControlName="unit" />
+      </label>
+      <button type="button" (click)="onAddIngredient()">add ingredient</button>
+    </div>
+  </label>
+  <button type="submit">add recipe</button>
+</form>

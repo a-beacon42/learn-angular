@@ -1,19 +1,20 @@
 import { Injectable, signal } from '@angular/core';
 import { MOCK_RECIPES } from '../mock-recipes';
-import { RecipeModel } from '../models';
+import { RecipeModel, Ingredient } from '../models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RecipeService {
-  readonly allRecipes = signal<RecipeModel[]>(MOCK_RECIPES);
+  allRecipes = signal<RecipeModel[]>(MOCK_RECIPES);
   readonly selectedRecipe = signal<RecipeModel | undefined>(undefined);
 
-  switchRecipe = (newRecipeId: number): void => {
-    this.selectedRecipe.set(MOCK_RECIPES[newRecipeId - 1]);
-  };
+  getRecipeById = (recipeId: string): RecipeModel | undefined => {
+    return this.allRecipes().find(recipe => recipe.id === recipeId);
+  }
 
-  getRecipeById = (recipeId: number): RecipeModel | undefined => {
-    return MOCK_RECIPES.find(recipe => recipe.id === recipeId);
+  addRecipe = (id: string, name: string, description: string, imgUrl: string, ingredients: Ingredient[]) => {
+    const newRecipe: RecipeModel = { id, name, description, imgUrl, ingredients };
+    this.allRecipes.update((currentRecipes) => [...currentRecipes, newRecipe]);
   }
 }

@@ -14,7 +14,7 @@ export class RecipeDetail {
 
   protected readonly recipe = computed(() => {
     const id = this.recipeId();
-    return id ? this.recipeService.getRecipeById(+id) : undefined;
+    return id ? this.recipeService.getRecipeById(id) : undefined;
   });
 
   protected readonly servings = signal<number>(1);
