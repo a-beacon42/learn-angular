@@ -1,10 +1,13 @@
 import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RecipeModel } from '../models';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-recipe-card',
-  imports: [RouterLink],
+  imports: [RouterLink, MatCardModule, MatButtonModule],
   templateUrl: './recipe-card.html',
   styleUrl: './recipe-card.scss',
 })

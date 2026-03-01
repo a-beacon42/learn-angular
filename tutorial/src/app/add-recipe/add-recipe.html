@@ -13,9 +13,11 @@
   </label>
   <label>
     ingredients
-    @for (ingredient of recipeForm.controls.ingredients.value; track ingredient.name) {
-      <li>{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</li>
-    }
+    <ul>
+      @for (ingredient of recipeForm.controls.ingredients.value; track ingredient.name) {
+        <li>{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</li>
+      }
+    </ul>
     <div [formGroup]="ingredientForm" (ngSubmit)="onAddIngredient()">
       <label>
         name
@@ -29,8 +31,10 @@
         unit
         <input formControlName="unit" />
       </label>
-      <button type="button" (click)="onAddIngredient()">add ingredient</button>
+      <button mat-raised-button color="tertiary" type="button" (click)="onAddIngredient()">
+        add ingredient
+      </button>
     </div>
   </label>
-  <button type="submit">add recipe</button>
+  <button mat-raised-button color="primary" type="submit">add recipe</button>
 </form>
