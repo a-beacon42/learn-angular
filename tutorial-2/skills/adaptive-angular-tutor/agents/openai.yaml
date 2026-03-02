@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adaptive Angular Tutor"
+  short_description: "Adaptive Angular learning modules and practice"
+  default_prompt: "Use $adaptive-angular-tutor to run a module on Angular topics with adaptive difficulty and hands-on exercises."

@@ -1,0 +1,20 @@
+<section>
+  <h2>{{ moduleTitle }}</h2>
+
+  <label>
+    Search
+    <input [value]="query()" (input)="query.set(($any($event.target)).value)" />
+  </label>
+
+  <ul>
+    @for (item of filteredItems(); track item.id) {
+      <li>
+        <strong>{{ item.label }}</strong>
+        <span>({{ item.tag }})</span>
+        <button type="button" (click)="toggleDone(item.id)">
+          {{ item.done ? 'Undo' : 'Complete' }}
+        </button>
+      </li>
+    }
+  </ul>
+</section>

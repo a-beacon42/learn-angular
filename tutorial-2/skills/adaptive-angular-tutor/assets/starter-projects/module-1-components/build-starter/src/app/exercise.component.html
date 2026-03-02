@@ -1,0 +1,21 @@
+<section>
+  <h2>{{ moduleTitle }}</h2>
+
+  <label>
+    Search
+    <input [value]="query()" (input)="query.set(($any($event.target)).value)" />
+  </label>
+
+  <!-- TODO: Add tag filter controls and empty-state rendering. -->
+
+  <ul>
+    @for (item of filteredItems(); track item.id) {
+      <li>
+        <span>{{ item.label }} ({{ item.tag }})</span>
+        <button type="button" (click)="toggleDone(item.id)">
+          {{ item.done ? 'Undo' : 'Complete' }}
+        </button>
+      </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <label>
+    Recipe name
+    <input formControlName="name" />
+  </label>
+
+  @if (form.controls.name.invalid) {
+    <p>Name is invalid.</p> <!-- BUG: shows before touched. -->
+  }
+
+  <label>
+    Servings
+    <input type="number" formControlName="servings" />
+  </label>
+
+  <div formArrayName="ingredients">
+    @for (control of ingredients.controls; track $index; let i = $index) {
+      <label>
+        Ingredient {{ i + 1 }}
+        <input [formControlName]="i" />
+      </label>
+    }
+  </div>
+
+  <button type="button" (click)="addIngredient()">Add ingredient</button>
+  <button type="submit" [disabled]="form.invalid">Save</button>
+</form>

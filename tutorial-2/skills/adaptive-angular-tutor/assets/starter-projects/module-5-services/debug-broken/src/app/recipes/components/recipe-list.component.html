@@ -1,0 +1,14 @@
+<section>
+  <h2>Recipes</h2>
+  <button type="button" (click)="reload()">Reload</button>
+
+  @if (vm().loading) {
+    <p>Loading...</p>
+  } @else {
+    <ul>
+      @for (recipe of vm().recipes; track recipe.recipe_id) {
+        <li>{{ recipe.recipe_name }} - {{ recipe.prep_minutes }} min</li>
+      }
+    </ul>
+  }
+</section>
