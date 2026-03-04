@@ -22,14 +22,30 @@ export class ExerciseComponent {
     { id: 3, label: 'Lemon Pasta', tag: 'Dinner', done: true },
     { id: 4, label: 'Granola Bowl', tag: 'Breakfast', done: false },
   ]);
+  protected readonly tags = computed(() => {
+    const unique = new Set(this.items().map((item) => item.tag));
+    return ['All', ...unique];
+  })
 
   protected readonly filteredItems = computed(() => {
-    // TODO: combine query + tag filtering for this module.
-    return this.items();
+    const q: string = this.query().toLowerCase();
+    const tag: string = this.selectedTag();
+
+    return this.items().filter((item) => {
+      const matchesQuery: boolean = item.label.toLowerCase().includes(q);
+      const matchesTag: boolean = tag === 'All' || tag === item.tag;
+      return matchesQuery && matchesTag;
+    });
   });
 
   protected toggleDone(itemId: number): void {
-    // TODO: implement immutable state update.
-    void itemId;
+    const updatedItems = this.items().map((item) => {
+      return item.id === itemId ? { ...item, done: !item.done } : item
+    });
+    this.items.set(updatedItems);
+  }
+
+  protected selectTag(tag: string): void {
+    this.selectedTag.set(tag);
   }
 }

@@ -3,18 +3,25 @@
 
   <label>
     Search
-    <input [value]="query()" (input)="query.set(($any($event.target)).value)" />
+    <input [value]="query()" (input)="query.set($any($event.target).value)" />
   </label>
+  @for (tag of tags(); track tag) {
+    <button type="button" (click)="selectTag(tag)">{{ tag }}</button>
+  }
 
-  <ul>
-    @for (item of filteredItems(); track item.id) {
-      <li>
-        <strong>{{ item.label }}</strong>
-        <span>({{ item.tag }})</span>
-        <button type="button" (click)="toggleDone(item.id)">
-          {{ item.done ? 'Undo' : 'Complete' }}
-        </button>
-      </li>
-    }
-  </ul>
+  @if (filteredItems().length > 0) {
+    <ul>
+      @for (item of filteredItems(); track item.id) {
+        <li>
+          <strong>{{ item.label }}</strong>
+          <span>({{ item.tag }})</span>
+          <button type="button" (click)="toggleDone(item.id)">
+            {{ item.done ? "Undo" : "Complete" }}
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>no items matching filters</p>
+  }
 </section>
