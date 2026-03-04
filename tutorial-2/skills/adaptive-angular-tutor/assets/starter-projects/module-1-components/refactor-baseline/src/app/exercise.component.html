@@ -9,7 +9,7 @@
     <button type="button" (click)="selectTag(tag)">{{ tag }}</button>
   }
 
-  @if (filteredItems().lenght > 0) {
+  @if (filteredItems().length > 0) {
     <ul>
       @for (item of filteredItems(); track item.id) {
         <li>
