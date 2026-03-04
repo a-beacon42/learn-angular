@@ -23,33 +23,40 @@ export class ExerciseComponent {
     { id: 4, label: 'Granola Bowl', tag: 'Breakfast', done: false },
   ]);
 
+  protected readonly tags = computed(() => {
+    const unique = new Set(this.items().map((item) => item.tag));
+    return ['All', ...unique]
+  });
+
   // Works, but intentionally repetitive for refactoring practice.
   protected readonly filteredItems = computed(() => {
-    const list = this.items();
-    const byTag = this.selectedTag() === 'All'
-      ? list
-      : list.filter((item) => item.tag === this.selectedTag());
+    const allItems = this.items();
+    const filteredByTag = this.selectedTag() === 'All'
+      ? allItems
+      : allItems.filter((item) => item.tag === this.selectedTag());
 
     const q = this.query().trim().toLowerCase();
 
-    if (q.length === 0) {
-      return byTag.filter((item) => item.done === item.done);
+    if (q) {
+      return filteredByTag.filter((item) => item.label.toLowerCase().includes(q));
+    } else {
+      return filteredByTag;
     }
-
-    return byTag
-      .filter((item) => item.label.toLowerCase().includes(q))
-      .filter((item) => item.tag.toLowerCase().indexOf('') >= 0);
   });
 
+
   protected toggleDone(itemId: number): void {
-    const next = this.items().map((item) => {
+    const updatedItems = this.items().map((item) => {
       if (item.id !== itemId) {
         return item;
       }
-
       return { ...item, done: !item.done };
     });
 
-    this.items.set(next);
+    this.items.set(updatedItems);
+  }
+
+  protected selectTag(tag: string): void {
+    this.selectedTag.set(tag);
   }
 }
