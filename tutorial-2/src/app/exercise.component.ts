@@ -1,4 +1,5 @@
 import { Component, computed, signal } from '@angular/core';
+import { PreferenceCardComponent } from './preference-card.component';
 
 export type ExerciseItem = {
   id: number;
@@ -11,6 +12,7 @@ export type ExerciseItem = {
   selector: 'app-exercise',
   standalone: true,
   templateUrl: './exercise.component.html',
+  imports: [PreferenceCardComponent]
 })
 export class ExerciseComponent {
   protected readonly moduleTitle = 'Module 2: Signals, input(), output(), derived state';
@@ -41,12 +43,18 @@ export class ExerciseComponent {
     return filteredByTag;
   });
 
+  protected readonly summary = computed(() => {
+    const total = this.items().length;
+    const completed = this.items().filter((item) => item.done).length;
+    return `${completed} of ${total} completed`
+  })
+
   protected toggleDone(itemId: number): void {
     const updatedItems = this.items().map((item) => {
       if (item.id != itemId) {
         return item;
       } else {
-        return { ...item, id: itemId }
+        return { ...item, done: !item.done }
       }
     })
     this.items.set(updatedItems);

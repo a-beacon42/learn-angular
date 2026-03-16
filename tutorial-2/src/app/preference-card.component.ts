@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ExerciseItem } from './exercise.component';
 
 @Component({
@@ -8,4 +8,9 @@ import { ExerciseItem } from './exercise.component';
 })
 export class PreferenceCardComponent {
     item = input<ExerciseItem>();
+    toggled = output<number>();
+
+    toggleDone(itemId: number) {
+        this.toggled.emit(itemId);
+    }
 }

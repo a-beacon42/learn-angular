@@ -13,11 +13,9 @@
   <ul>
     @for (item of filteredItems(); track item.id) {
       <li>
-        <span>{{ item.label }} ({{ item.tag }})</span>
-        <button type="button" (click)="toggleDone(item.id)">
-          {{ item.done ? "Undo" : "Complete" }}
-        </button>
+        <app-preference-card [item]="item" (toggled)="toggleDone($event)" />
       </li>
     }
   </ul>
+  <span>{{ summary() }} </span>
 </section>
