@@ -1,7 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
-import { PreferenceCardComponent } from './preference-card.component';
 
-export type ExerciseItem = {
+type ExerciseItem = {
   id: number;
   label: string;
   tag: string;
@@ -12,12 +11,12 @@ export type ExerciseItem = {
   selector: 'app-exercise',
   standalone: true,
   templateUrl: './exercise.component.html',
-  imports: [PreferenceCardComponent]
 })
 export class ExerciseComponent {
   protected readonly moduleTitle = 'Module 2: Signals, input(), output(), derived state';
   protected readonly query = signal('');
   protected readonly selectedTag = signal('All');
+  protected readonly expandedIds = signal<Set<number>>(new Set());
   protected readonly items = signal<ExerciseItem[]>([
     { id: 1, label: 'Dark mode', tag: 'Preferences', done: false },
     { id: 2, label: 'Email notifications', tag: 'Notifications', done: true },
@@ -25,42 +24,38 @@ export class ExerciseComponent {
     { id: 4, label: 'Compact layout', tag: 'Preferences', done: false },
   ]);
 
-  protected readonly tags = computed(() => {
-    const unique = new Set(this.items().map((item) => item.tag));
-    return ['All', ...unique]
-  });
-
   protected readonly filteredItems = computed(() => {
-    const allItems = this.items();
-    const filteredByTag = this.selectedTag() === 'All'
-      ? allItems
-      : allItems.filter((item) => item.tag === this.selectedTag());
-    const q = this.query().trim().toLowerCase();
+    const q = this.query();
 
-    if (q) {
-      return filteredByTag.filter((item) => item.label.toLowerCase().includes(q))
+    if (!q) {
+      return this.items();
     }
-    return filteredByTag;
-  });
 
-  protected readonly summary = computed(() => {
-    const total = this.items().length;
-    const completed = this.items().filter((item) => item.done).length;
-    return `${completed} of ${total} completed`
-  })
+    return this.items().filter((item) => item.label.includes(q));
+  });
 
   protected toggleDone(itemId: number): void {
-    const updatedItems = this.items().map((item) => {
-      if (item.id != itemId) {
-        return item;
-      } else {
-        return { ...item, done: !item.done }
-      }
-    })
-    this.items.set(updatedItems);
+    const found = this.items().find((item) => item.id === itemId);
+
+    if (found) {
+      const updated = this.items().map((item) => {
+        if (item.id != found.id) {
+          return item
+        } else {
+          return { ...item, done: !found.done }
+        }
+      })
+      this.items.set(updated);
+    }
   }
 
-  protected selectTag(tag: string): void {
-    this.selectedTag.set(tag)
+  protected updateExpanded(itemId: number): void {
+    const current = new Set(this.expandedIds());
+    current.has(itemId) ? current.delete(itemId) : current.add(itemId);
+    this.expandedIds.set(current);
+  }
+
+  protected isExpanded(itemId: number): boolean {
+    return this.expandedIds().has(itemId);
   }
 }

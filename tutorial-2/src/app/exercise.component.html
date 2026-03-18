@@ -6,16 +6,21 @@
     <input [value]="query()" (input)="query.set($any($event.target).value)" />
   </label>
 
-  @for (tag of tags(); track tag) {
-    <button type="button" (click)="selectTag(tag)">{{ tag }}</button>
-  }
-
   <ul>
     @for (item of filteredItems(); track item.id) {
       <li>
-        <app-preference-card [item]="item" (toggled)="toggleDone($event)" />
+        <button type="button" (click)="updateExpanded(item.id)">
+          {{ isExpanded(item.id) ? "Hide" : "Show" }} details
+        </button>
+
+        @if (isExpanded(item.id)) {
+          <span>{{ item.label }} ({{ item.tag }})</span>
+        }
+
+        <button type="button" (click)="toggleDone(item.id)">
+          {{ item.done ? "Undo" : "Complete" }}
+        </button>
       </li>
     }
   </ul>
-  <span>{{ summary() }} </span>
 </section>
